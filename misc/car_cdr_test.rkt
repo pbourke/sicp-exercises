@@ -1,4 +1,4 @@
-#lang r5rs
+;#lang r5rs
 ; http://cs.gettysburg.edu/~tneller/cs341/scheme-intro/index.html
 ;For practice, follow the examples above in extracting all of the letter symbols individually.   For more challenging practice, consider the same exercise with a mixture of lists of lists and dotted pairs:
 ;
