@@ -111,4 +111,74 @@
 ; all args are evaluated before the procedure is applied
 
 ; following enters infinite loop - applicative order
-(test 0 (p))
+;(test 0 (p))
+
+;ex 1.6
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+
+;What happens when Alyssa attempts to use this to compute square roots? Explain.
+; the special form of if works with applicative order evaluation
+; this version doesn't - so if we recurse in the else-clause and have a 
+; terminating condition in the then-clause, we'll trigger an infinite loop
+; regardless of inputs. for example, the following should terminate:
+(if (= 0 0) 1 (p))
+
+; but this should not
+;(new-if (= 0 0) 2 (p))
+
+;ex 1.7
+(define (square x)
+  (* x x))
+
+(define (average x y)
+  (/ (+ x y)
+     2))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 
+     0.001))
+
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x) x)))
+
+(define (my-sqrt x)
+  (sqrt-iter 1.0 x))
+
+; fails for small number - .001 provides a lower bound on the size of number that we can
+; evaluate
+(my-sqrt 0.000001)
+; fails for a large number - we are never able to satisfy the condition in good-enough?:
+;(my-sqrt 10000000000000)
+
+; stop when ||lastguess|-|guess|| / lastguess is less than a lower bound value
+; ie: guesses are not changing significantly between iterations
+(define (good-enough-delta? guess lastguess x)
+  (< (/ (abs (- (abs lastguess) (abs guess)))
+        lastguess)
+     0.0001))
+     
+(define (sqrt-iter-delta guess lastguess x)
+  (if (good-enough-delta? guess lastguess x)
+      guess
+      (sqrt-iter-delta (improve guess x) guess x)))
+
+(define (my-sqrt-delta x)
+  (sqrt-iter-delta 1.0 0.0 x))
+
+(my-sqrt-delta 9.0)
+(my-sqrt-delta 25)
+
+; large number
+(my-sqrt-delta 100000000000000000000)
+(square (my-sqrt-delta 100000000000000000000))
+
+; small number
+(my-sqrt-delta 0.00000001)
+(square (my-sqrt-delta 0.00000001))
