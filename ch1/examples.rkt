@@ -57,3 +57,37 @@ circumference
   (sum-of-squares (+ a 1) (* a 2)))
 
 (f 5)
+
+;p44
+(define (my-abs x)
+  (cond ((> x 0) x)
+        ((= x 0) 0)
+        ((< x 0) (- x))))
+
+(my-abs 10)
+(my-abs 0)
+(my-abs -10)
+
+(define (my-abs2 x)
+  (cond ((< x 0) (- x))
+        (else x)))
+
+(my-abs2 10)
+(my-abs2 0)
+(my-abs2 -10)
+
+(define (my-abs3 x)
+  (if (< x 10)
+      (- x)
+      x))
+
+(my-abs3 10)
+(my-abs3 0)
+(my-abs3 -10)
+
+(define (in-range t l u)
+  (and (> t l)
+       (< t u)))
+
+(in-range 5 1 10)
+(in-range 1 3 10)

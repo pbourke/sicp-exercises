@@ -85,4 +85,13 @@
 (sum-of-squares-of-largest-two-apply 1 1 1)
 (sum-of-squares-of-largest-two-apply 1 2 1)
 (sum-of-squares-of-largest-two-apply 2 3 1)
-  
+
+;Exercise 1.4: Observe that our model of evaluation allows for combinations 
+;whose operators are compound expressions. Use this observation to describe 
+;the behavior of the following procedure:
+(define (a-plus-abs-b a b)
+  ((if (> b 0) + -) a b))
+;use the value of b to choose whether to add or subtract b. If b <= 0
+;it is subtracted from a, which is the same result as a + }b}. If b > 0,
+;it is added to a so a + |b| holds here as well
+
