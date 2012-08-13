@@ -95,3 +95,20 @@
 ;it is subtracted from a, which is the same result as a + }b}. If b > 0,
 ;it is added to a so a + |b| holds here as well
 
+;ex 1.5
+(define (p) (p)) ; recurse forever
+(define (test x y)
+  (if (= x 0) 0 y)) ; value is y if x is zero
+
+; if arguments are evaluated in normal order,
+; the this should exit with value 0, since the infinite
+; loop from p is not entered - we expand all values before
+; evaluating them, and the "tree" which contains (p) is not
+; evaluated
+
+; if in applicative order, then the infinite loop should be
+; entered as p is evaluated before test is evaluated since
+; all args are evaluated before the procedure is applied
+
+; following enters infinite loop - applicative order
+(test 0 (p))
