@@ -121,3 +121,39 @@ circumference
 (my-sqrt (+ (my-sqrt 2) (my-sqrt 3)))
 
 (square (my-sqrt 1000))
+
+(define (my-sqrt2 x)
+  (define (improve2 guess)
+    (average guess (/ x guess)))
+  
+  (define (good-enough2? guess)
+    (< (abs (- (square guess) x)) 
+       0.001))
+  
+  (define (sqrt-iter2 guess)
+    (if (good-enough2? guess)
+        guess
+        (sqrt-iter2 (improve2 guess))))
+  
+  (sqrt-iter2 1.0))
+
+(my-sqrt2 10000)
+
+(define (factorial n)
+  (if (= n 1)
+      1
+      (* n (factorial (- n 1)))))
+
+(factorial 5)
+(factorial 1)
+
+(define (factorial2 n)
+  (define (fact-iter product counter)
+    (if (> counter n)
+        product
+        (fact-iter (* counter product)
+                   (+ counter 1))))
+  (fact-iter 1 1))
+
+(factorial2 5)
+(factorial2 1)
