@@ -182,3 +182,20 @@
 ; small number
 (my-sqrt-delta 0.00000001)
 (square (my-sqrt-delta 0.00000001))
+
+;ex 1.8
+(define (improve-cube guess x)
+  (/ (+ (/ x (square guess))
+        (* 2 guess))
+     3))
+
+(define (cubert-iter guess lastguess x)
+  (if (good-enough-delta? guess lastguess x)
+      guess
+      (cubert-iter (improve-cube guess x) guess x)))
+
+(define (my-cubert x)
+  (cubert-iter 1.0 0.0 x))
+
+(my-cubert 27)
+(my-cubert 125)
