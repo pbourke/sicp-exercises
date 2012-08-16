@@ -157,3 +157,27 @@ circumference
 
 (factorial2 5)
 (factorial2 1)
+
+;1.2.2 p.69
+(define (worse-fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (worse-fib (- n 1))
+                 (worse-fib (- n 2))))))
+
+(define (better-fib n)
+  (define (fib-iter i a b)
+    (if (= n i) 
+        a
+        (fib-iter (+ i 1) b (+ a b))))
+  (fib-iter 0 0 1))
+
+(define fib better-fib)
+
+(fib 0)
+(fib 1)
+(fib 2)
+(fib 3)
+(fib 4)
+(fib 5)
+(fib 100)
