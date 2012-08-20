@@ -323,3 +323,93 @@
 (A 2 0); 0
 
 ; 2^ ... ^2 (with n-1 exponentiations of 2)
+
+; ex 1.11
+(define (ex-1.11-recursive n)
+  (cond ((< n 3) n)
+        (else (+ (ex-1.11-recursive (- n 1))
+                 (* 2 (ex-1.11-recursive (- n 2)))
+                 (* 3 (ex-1.11-recursive (- n 3)))))))        
+
+(display "Ex 1.11 - recursive")
+(newline)
+(ex-1.11-recursive 0)
+(ex-1.11-recursive 1)
+(ex-1.11-recursive 2)
+(ex-1.11-recursive 3)
+(ex-1.11-recursive 4)
+(ex-1.11-recursive 5)
+(ex-1.11-recursive 6)
+(ex-1.11-recursive 7)
+(ex-1.11-recursive 8)
+
+(define (ex-1.11-iterative n)
+  (define (iter i i-1 i-2 i-3)
+    (cond ((> i n)
+           i-1)
+          ((< i 3)
+           (iter (+ i 1) i (- i 1) (- i 2)))
+          (else
+           (iter (+ i 1) 
+                 (+ i-1                            
+                    (* 2 i-2)                    
+                    (* 3 i-3))
+                 i-1
+                 i-2))))                 
+  (iter 0 0 0 0))
+
+; not working - values must equal recursive version
+(display "Ex 1.11 - iterative")
+(newline)
+(ex-1.11-iterative 0)
+(ex-1.11-iterative 1)
+(ex-1.11-iterative 2)
+(ex-1.11-iterative 3)
+(ex-1.11-iterative 4)
+(ex-1.11-iterative 5)
+(ex-1.11-iterative 6)
+(ex-1.11-iterative 7)
+(ex-1.11-iterative 8)
+
+; ex 1.12 - write a procedure that computes elements of Pascal’s triangle by means of a recursive process.
+
+; pascal-row for 5th row is 1, sum(4th_1+4th_2), sum(4th_2+4th_3), sum(4th_3, 4th_4), 1
+; more formally,
+; pascal-element(row, column) = 1 if column = 1
+; pascal-element(row, column) = 1 if column = row
+; pascal-element(row, column) = pascal-element(row-1, column-1) + pascal-element(row-1, column) otherwise
+
+(define (pascal-element row column)
+  (cond ((= 1 column) 1)
+        ((= row column) 1)
+        (else
+         (+ (pascal-element (- row 1) (- column 1))
+            (pascal-element (- row 1) column)))))
+
+(display "row 1")(newline)
+(pascal-element 1 1)
+(display "row 2")(newline)
+(pascal-element 2 1)
+(pascal-element 2 2)
+(display "row 3")(newline)
+(pascal-element 3 1)
+(pascal-element 3 2)
+(pascal-element 3 3)
+(display "row 4")(newline)
+(pascal-element 4 1)
+(pascal-element 4 2)
+(pascal-element 4 3)
+(pascal-element 4 4)
+(display "row 5")(newline)
+(pascal-element 5 1)
+(pascal-element 5 2)
+(pascal-element 5 3)
+(pascal-element 5 4)
+(pascal-element 5 5)
+(display "row 6")(newline)
+(pascal-element 6 1)
+(pascal-element 6 2)
+(pascal-element 6 3)
+(pascal-element 6 4)
+(pascal-element 6 5)
+(pascal-element 6 6)
